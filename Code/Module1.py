@@ -58,27 +58,27 @@ AIR = 3
 TUMOR = 4
 # each tissue has x1, y1, x2, y2 as rectangle in image that represents that tissue
 Tissues = np.zeros((5, 2, 2), dtype=np.int32)
-Tissues[NAWM][0][0] = 145 # we measured the locaiton of these tissues
+Tissues[NAWM][0][0] = 145 # we measured the location of these tissues
 Tissues[NAWM][0][1] = 68
 Tissues[NAWM][1][0] = 157
 Tissues[NAWM][1][1] = 74
 
-Tissues[GM][0][0] = 166 # we measured the locaiton of these tissues
+Tissues[GM][0][0] = 166 # we measured the location of these tissues
 Tissues[GM][0][1] = 58
 Tissues[GM][1][0] = 175
 Tissues[GM][1][1] = 62
 
-Tissues[CSF][0][0] = 105 # we measured the locaiton of these tissues
+Tissues[CSF][0][0] = 105 # we measured the location of these tissues
 Tissues[CSF][0][1] = 148
 Tissues[CSF][1][0] = 120
 Tissues[CSF][1][1] = 154
 
-Tissues[AIR][0][0] = 1 # we measured the locaiton of these tissues
+Tissues[AIR][0][0] = 1 # we measured the location of these tissues
 Tissues[AIR][0][1] = 1
 Tissues[AIR][1][0] = 10
 Tissues[AIR][1][1] = 10
 
-Tissues[TUMOR][0][0] = 65 # we measured the locaiton of these tissues
+Tissues[TUMOR][0][0] = 65 # we measured the location of these tissues
 Tissues[TUMOR][0][1] = 130
 Tissues[TUMOR][1][0] = 74
 Tissues[TUMOR][1][1] = 139
