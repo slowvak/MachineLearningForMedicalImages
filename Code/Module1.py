@@ -16,13 +16,15 @@ import matplotlib.pyplot as plt
 import pylab
 # from matplotlib import cm
 
-os.chdir("/Users/bje01/Google Drive/MachineLearningRadiographicsArticle/BrainMRI")
+
+CurrentDir, CurrentFile = os.path.split(__file__)
+
 
 # Here are the file names--these files should be in the same directory as this file
-PreName = 'Pre.dcm'
-PostName = 'Post.dcm'
-T2Name = 'T2.dcm'
-FLAIRName = 'FLAIR.dcm'
+PreName =  os.path.join(CurrentDir, "Data",'Pre.dcm')   
+PostName =  os.path.join(CurrentDir, "Data",  'Post.dcm')  
+T2Name =  os.path.join(CurrentDir, "Data", 'T2.dcm')   
+FLAIRName =  os.path.join(CurrentDir, "Data", 'FLAIR.dcm')   
 
 # read Pre in--we assume that all images are same x,y dims
 Pre = pydicom.read_file(PreName)
