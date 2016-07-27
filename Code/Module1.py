@@ -127,9 +127,9 @@ plt.show()
 
 X_1 = np.stack((ClassNAWMpost.reshape(-1),ClassNAWMpret.reshape(-1)), axis=-1) # we only take the first two features.
 X_2 = np.stack((ClassTUMORpost.reshape(-1),ClassTUMORpret.reshape(-1)),axis=-1)  
-print (X_1)
+# print (X_1)
 # print (np.shape(X_1))
-print (X_2)
+# print (X_2)
 # print (np.shape(X_2))  
 X=np.vstack((X_1,X_2))
 y =np.zeros((np.shape(X))[0])
@@ -192,15 +192,15 @@ clf.fit(X, y)
 x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
 y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
 xx = np.linspace(x_min,x_max)
-print (xx)
+# print (xx)
 xx=np.asarray(xx)
 # get the separating hyperplane
 w = clf.coef_[0]
-print(w)
+# print(w)
 a = -w[0] / w[1]
-print (a)
+# print (a)
 yy = a * xx - (clf.intercept_[0]) / w[1]
-print(yy)
+# print(yy)
 # plot the parallels to the separating hyperplane that pass through the
 # support vectors
 b = clf.support_vectors_[0]
