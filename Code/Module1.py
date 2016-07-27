@@ -184,40 +184,40 @@ plt.show()
 
 # understanding margins 
 
+for C in [1,2,3,10]:
+	fig = plt.subplot()
+	clf = svm.SVC(C,kernel='linear')
+	clf.fit(X, y)
+	# create a mesh to plot in
+	x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+	y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+	xx = np.linspace(x_min,x_max)
+	# print (xx)
+	xx=np.asarray(xx)
+	# get the separating hyperplane
+	w = clf.coef_[0]
+	# print(w)
+	a = -w[0] / w[1]
+	# print (a)
+	yy = a * xx - (clf.intercept_[0]) / w[1]
+	# print(yy)
+	# plot the parallels to the separating hyperplane that pass through the
+	# support vectors
+	b = clf.support_vectors_[0]
+	yy_down = a * xx + (b[1] - a * b[0])
+	b = clf.support_vectors_[-1]
+	yy_up = a * xx + (b[1] - a * b[0])
 
-fig = plt.subplot()
-clf = svm.SVC(kernel='linear')
-clf.fit(X, y)
-# create a mesh to plot in
-x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-xx = np.linspace(x_min,x_max)
-# print (xx)
-xx=np.asarray(xx)
-# get the separating hyperplane
-w = clf.coef_[0]
-# print(w)
-a = -w[0] / w[1]
-# print (a)
-yy = a * xx - (clf.intercept_[0]) / w[1]
-# print(yy)
-# plot the parallels to the separating hyperplane that pass through the
-# support vectors
-b = clf.support_vectors_[0]
-yy_down = a * xx + (b[1] - a * b[0])
-b = clf.support_vectors_[-1]
-yy_up = a * xx + (b[1] - a * b[0])
+	# plot the line, the points, and the nearest vectors to the plane
+	plt.plot(xx, yy, 'k-')
+	plt.plot(xx, yy_down, 'k--')
+	plt.plot(xx, yy_up, 'k--')
 
-# plot the line, the points, and the nearest vectors to the plane
-plt.plot(xx, yy, 'k-')
-plt.plot(xx, yy_down, 'k--')
-plt.plot(xx, yy_up, 'k--')
-
-plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1],
-            s=80, facecolors='none')
-plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired)
-plt.axis('tight')
-plt.show()
+	plt.scatter(clf.support_vectors_[:, 0], clf.support_vectors_[:, 1],
+	            s=80, facecolors='none')
+	plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.Paired)
+	plt.axis('tight')
+	plt.show()
 
 
 
