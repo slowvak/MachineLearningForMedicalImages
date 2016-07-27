@@ -21,10 +21,10 @@ CurrentDir, CurrentFile = os.path.split(__file__)
 
 
 # Here are the file names--these files should be in the same directory as this file
-PreName =  os.path.join(CurrentDir, "Data",'Pre.dcm')   
-PostName =  os.path.join(CurrentDir, "Data",  'Post.dcm')  
-T2Name =  os.path.join(CurrentDir, "Data", 'T2.dcm')   
-FLAIRName =  os.path.join(CurrentDir, "Data", 'FLAIR.dcm')   
+PreName =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data",'Pre.dcm') )  
+PostName =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data",  'Post.dcm')  )
+T2Name =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data", 'T2.dcm') )  
+FLAIRName =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data", 'FLAIR.dcm') )  
 
 # read Pre in--we assume that all images are same x,y dims
 Pre = pydicom.read_file(PreName)
