@@ -1,5 +1,5 @@
 #  Demonstration code developed bu Mayo Clinic Radiology Informatics Laboratory
-# Copyright 2016
+# 
 #
 import os
 #
@@ -9,22 +9,24 @@ import os
 # if you get an error on this statement, you need to install the library:
 # pip install pydicom
 import dicom as pydicom
-
 # same for these libraries
 import numpy as np
 import matplotlib.pyplot as plt
-import pylab
+from mpl_toolkits.mplot3d import Axes3D
+from sklearn import svm
+import pandas as pd
+from matplotlib.colors import ListedColormap
+import csv
 # from matplotlib import cm
-
 
 CurrentDir, CurrentFile = os.path.split(__file__)
 
 
 # Here are the file names--these files should be in the same directory as this file
-PreName =  os.path.join(CurrentDir, "Data",'Pre.dcm')   
-PostName =  os.path.join(CurrentDir, "Data",  'Post.dcm')  
-T2Name =  os.path.join(CurrentDir, "Data", 'T2.dcm')   
-FLAIRName =  os.path.join(CurrentDir, "Data", 'FLAIR.dcm')   
+PreName =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data",'Pre.dcm') )  
+PostName =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data",  'Post.dcm')  )
+T2Name =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data", 'T2.dcm') )  
+FLAIRName =  os.path.abspath(os.path.join(os.path.dirname( __file__ ), os.pardir, "Data", 'FLAIR.dcm') )  
 
 # read Pre in--we assume that all images are same x,y dims
 Pre = pydicom.read_file(PreName)
@@ -87,5 +89,55 @@ plt.figure()
 plt.imshow(np.flipud(Pre.pixel_array),cmap='gray')
 plt.contour(Tissues[NAWM], colors='k', origin='image')
 plt.axis([0,256,0,256])
+plt.show()
+
+
+# Create classes 
+ClassNAWMpost=np.asarray(ArrayDicom[Tissues[NAWM][0][0]:Tissues[NAWM][1][0],Tissues[NAWM][0][1]:Tissues[NAWM][1][1],0])
+ClassNAWMpret=np.asarray(ArrayDicom[Tissues[NAWM][0][0]:Tissues[NAWM][1][0],Tissues[NAWM][0][1]:Tissues[NAWM][1][1],1])
+ClassNAWMT2=np.asarray(ArrayDicom[Tissues[NAWM][0][0]:Tissues[NAWM][1][0],Tissues[NAWM][0][1]:Tissues[NAWM][1][1],2])
+ClassNAWMFLAIR=np.asarray(ArrayDicom[Tissues[NAWM][0][0]:Tissues[NAWM][1][0],Tissues[NAWM][0][1]:Tissues[NAWM][1][1],3])
+ClassTUMORpost=np.asarray(ArrayDicom[Tissues[TUMOR][0][0]:Tissues[TUMOR][1][0],Tissues[TUMOR][0][1]:Tissues[TUMOR][1][1],0])
+ClassTUMORpret=np.asarray(ArrayDicom[Tissues[TUMOR][0][0]:Tissues[TUMOR][1][0],Tissues[TUMOR][0][1]:Tissues[TUMOR][1][1],1])
+ClassTUMORT2=np.asarray(ArrayDicom[Tissues[TUMOR][0][0]:Tissues[TUMOR][1][0],Tissues[TUMOR][0][1]:Tissues[TUMOR][1][1],2])
+ClassTUMORFLAIR=np.asarray(ArrayDicom[Tissues[TUMOR][0][0]:Tissues[TUMOR][1][0],Tissues[TUMOR][0][1]:Tissues[TUMOR][1][1],3])
+ClassAIRpost=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],0])
+ClassAIRpret=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],1])
+ClassAIRT2=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],2])
+ClassAIRFLAIR=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],3])
+ClassCSFpost=np.asarray(ArrayDicom[Tissues[CSF][0][0]:Tissues[CSF][1][0],Tissues[CSF][0][1]:Tissues[CSF][1][1],0])
+ClassCSFpret=np.asarray(ArrayDicom[Tissues[CSF][0][0]:Tissues[CSF][1][0],Tissues[CSF][0][1]:Tissues[CSF][1][1],1])
+ClassCSFT2=np.asarray(ArrayDicom[Tissues[CSF][0][0]:Tissues[CSF][1][0],Tissues[CSF][0][1]:Tissues[CSF][1][1],2])
+ClassCSFFLAIR=np.asarray(ArrayDicom[Tissues[CSF][0][0]:Tissues[CSF][1][0],Tissues[CSF][0][1]:Tissues[CSF][1][1],3])
+ClassGMpost=np.asarray(ArrayDicom[Tissues[GM][0][0]:Tissues[GM][1][0],Tissues[GM][0][1]:Tissues[GM][1][1],0])
+ClassGMpret=np.asarray(ArrayDicom[Tissues[GM][0][0]:Tissues[GM][1][0],Tissues[GM][0][1]:Tissues[GM][1][1],1])
+ClassGMT2=np.asarray(ArrayDicom[Tissues[GM][0][0]:Tissues[GM][1][0],Tissues[GM][0][1]:Tissues[GM][1][1],2])
+ClassGMFLAIR=np.asarray(ArrayDicom[Tissues[GM][0][0]:Tissues[GM][1][0],Tissues[GM][0][1]:Tissues[GM][1][1],3])
+ClassAIRpost=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],0])
+ClassAIRpret=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],1])
+ClassAIRT2=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],2])
+ClassAIRFLAIR=np.asarray(ArrayDicom[Tissues[AIR][0][0]:Tissues[AIR][1][0],Tissues[AIR][0][1]:Tissues[AIR][1][1],3])
+
+print (np.asarray(ClassNAWMpost).dtype)
+# Save the data to CSV using pandas
+print ('Saving the data to a pandas dataframe and subsequnetly to a csv')
+
+datasetcomplete=dict(GMpost=ClassGMpost.reshape(-1).tolist(),GMpre=ClassGMpret.reshape(-1).tolist(),GMT2=ClassGMT2.reshape(-1).tolist(),GMFLAIR=ClassGMFLAIR.reshape(-1).tolist(),CSFpost=ClassCSFpost.reshape(-1).tolist(),CSFpre=ClassCSFpret.reshape(-1).tolist(),CSFT2=ClassCSFT2.reshape(-1).tolist(),CSFFLAIR=ClassCSFFLAIR.reshape(-1).tolist(),AIRpost=ClassAIRpost.reshape(-1).tolist(),AIRpre=ClassAIRpret.reshape(-1).tolist(),AIRT2=ClassAIRT2.reshape(-1).tolist(),AIRFLAIR=ClassAIRFLAIR.reshape(-1).tolist(),NAWMpost=ClassNAWMpost.reshape(-1).tolist(),NAWMpre=ClassNAWMpret.reshape(-1).tolist(),NAWMT2=ClassNAWMT2.reshape(-1).tolist(),NAWMFLAIR=ClassNAWMFLAIR.reshape(-1).tolist(),TUMORpost=ClassTUMORpost.reshape(-1).tolist(),TUMORpre=ClassTUMORpret.reshape(-1).tolist(),TUMORT2=ClassTUMORT2.reshape(-1).tolist(),TUMORFLAIR=ClassTUMORFLAIR.reshape(-1).tolist())
+
+datapd=pd.DataFrame.from_dict(datasetcomplete,orient='index')
+print (datapd)
+datapd=datapd.transpose()
+# datapd=pd.DataFrame(dict([ (k,Series(v)) for k,v in datasetcomplete.iteritems() ]))
+datapd.to_csv('DataExample.csv',index=False)
+
+print('Dispay some scatter plots')
+# Display Tumor vs NAWM
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+ax.scatter(ClassNAWMpost.reshape(-1), ClassNAWMpret.reshape(-1), ClassNAWMFLAIR.reshape(-1))
+ax.scatter(ClassTUMORpost.reshape(-1), ClassTUMORpret.reshape(-1), ClassTUMORFLAIR.reshape(-1), c='r', marker='^')
+ax.set_xlabel('post')
+ax.set_ylabel('pret')
+ax.set_zlabel('FLAIR')
 plt.show()
 
