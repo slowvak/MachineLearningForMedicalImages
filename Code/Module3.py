@@ -1,5 +1,5 @@
 #  Demonstration code developed bu Mayo Clinic Radiology Informatics Laboratory
-# 
+#
 #
 # Module 2 -SVM
 # Load the libraries
@@ -53,7 +53,7 @@ X_1 = np.stack((ClassNAWMpost,ClassNAWMpre)) # we only take the first two featur
 X_2 = np.stack((ClassTUMORpost,ClassTUMORpre))
 X=np.concatenate((X_1.transpose(), X_2.transpose()),axis=0)
 y =np.zeros((np.shape(X))[0])
-y[np.shape(X_1)[0]:]=1
+y[np.shape(X_1)[1]:]=1
 
 h = .02  # step size in the mesh
 
@@ -103,7 +103,7 @@ for i, clf in enumerate((svc, lin_svc, rbf_svc, poly_svc)):
 plt.show()
 
 
-# understanding margins 
+# understanding margins
 
 for C in [1,2,3,10]:
 	fig = plt.subplot()
