@@ -55,3 +55,6 @@ docs/_build/
 # iPython notebooks
 .ipynb_checkpoints
 
+# mac specific
+*.DS_Store
+
