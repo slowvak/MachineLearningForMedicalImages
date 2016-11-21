@@ -1,9 +1,9 @@
 # MachineLearningForMedicalImages
-Example code on how to apply machine learning methods to medical images. Contains code (python and python notebooks) and data (DICOM)
+Example code on how to apply machine learning methods to medical images. Contains code (python and python notebooks) and data (NIfTI)
 
 Welcome to this repository designed to help you learn about machine learning and how it can be applied to medical images!
 
-This tutorial requires that you execute some programs, and ideally, you edit and change some of the programs to whet your curiousity. In order to do this, you must:
+This tutorial requires that you execute some programs, and ideally, you edit and change some of the programs to whet your curiosity. In order to do this, you must:
 
 1. have python 3.5 or later. While python is already present on Mac and Linux machines, it is probably version 2.7 or earlier. There are important but incompatible differences between python 2.x and 3.x. Python 3.3 and later also includes pip, which is needed for installing packages. We recommend updating to 3.x. The instructions for getting python for all major platforms is at Python.org.
 
