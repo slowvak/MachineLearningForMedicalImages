@@ -10,3 +10,5 @@ scikit-image
 pydotplus
 pydicom
 nibabel
+pip install of pydot-ng
+h5py
