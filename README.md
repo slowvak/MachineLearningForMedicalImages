@@ -19,13 +19,15 @@ This tutorial requires that you execute some programs, and ideally, you edit and
 
 Once you have done the above, you should be ready to begin. The contents of this repository are organized into /code and /data. You may 'cd' into the code directory and list the directory to see the examples. These are all set up to expect to have the data arranged the way the repository had it arranged, so do not change this unless you know what you are donig.
 
+If you know how to run and use IPython/Jupyter, the notebooks are in the /notebooks directory.
+
 Please feel free to make changes and suggest improvements. We hope this helps to accelerate the use of machine learning methods in medical imaging, for the improved care of our patients.
 
 Sincerely,
 
   Mayo Radiology Informatics Laboratory
 
-    - Bradley J Erickcson, MD PhD  <bje at Mayo.edu>
+    - Bradley J Erickson, MD PhD  <bje at Mayo.edu>
   
     - Panagiotis Korfiatis, PhD <Korfiatis.Panagiotis at Mayo.edu>
   
